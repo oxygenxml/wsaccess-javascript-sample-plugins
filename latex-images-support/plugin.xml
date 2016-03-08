@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="unique.id.value"
+ name="Add Action To DITA Maps Manager popup-menu"
+ description="Plugin adds contextual menu action to DITA Maps Manager pop-up menu."
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <runtime>
+  <library name="jlatexmath-1.0.3.jar" scope="global"/>
+ </runtime>
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+</plugin>
