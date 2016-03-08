@@ -6,3 +6,5 @@ https://www.oxygenxml.com/doc/versions/17.1/ug-editor/#concepts/workspace-access
 Each of the folders in this repository is a sample plugin which use this technology to alter different behaviors in Oxygen. So if you take each of these folders, copy it to the "OXYGEN_INSTALL_DIR/plugins" folder and start Oxygen, the plugin will start to work.
 
 The sample plugin "runScenarios" adds a toolbar action called "Transform to PDF". When the button is pressed, it invokes an already defined transformation scenario called "DITA PDF" on the current opened XML document.
+
+The sample plugin "contributePopupActionDMM" contributes a contextual menu action called "Run Notepad" on the popup menu of the DITA Maps Manager view. When the action is called, it attempts to execute the Notepad.exe process and open the referenced topic with it.
