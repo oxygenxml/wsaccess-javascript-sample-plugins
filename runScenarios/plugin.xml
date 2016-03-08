@@ -1,6 +1,6 @@
 <!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
 <plugin
- id="unique.id.value"
+ id="com.oxygenxml.run.scenarios"
  name="Run transformation scenarios"
  description="Contribute toolbar buttons to run transformation scenarios on current editor."
  version="1.0"
