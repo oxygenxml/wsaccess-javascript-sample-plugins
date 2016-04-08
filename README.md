@@ -12,3 +12,7 @@ The sample plugin "contributePopupActionDMM" (compatible with Oxygen 17.1 and ne
 The sample plugin "latex-images-support" (compatible with Oxygen 18.0 and newer) adds support for rendering Latex images in the Author visual editing mode using the open source JLatex library. The image Latex content needs to be in an XML element called "latex"
 
 The sample plugin “impose-options“ (compatible with Oxygen 18.0 and newer) imports a fixed set of options (saved in XML format) in Oxygen when the application  start. You can save global options to XML from Oxygen by using the Options menu->”Export Global Options” action.
+
+The sample plugin “customEditorVariables“ (compatible with Oxygen 17.1 and newer) resolves the editor variable ${clipboard} to the text contents of the clipboard. Editor variables are expanded and can be used in various places from Oxygen:
+https://www.oxygenxml.com/doc/versions/17.1/ug-editor/index.html#topics/editor-variables.html
+
