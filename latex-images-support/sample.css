@@ -1,0 +1,12 @@
+*{
+    display:block;
+}
+
+latex{	
+	display:inline !important;
+    white-space: -oxy-trim-when-ws-only !important;
+}
+latex * {
+    display:none !important;
+    white-space:normal !important;
+}
