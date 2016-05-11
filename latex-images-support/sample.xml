@@ -1,0 +1,5 @@
+<?xml-stylesheet type="text/css" href="sample.css"?>
+<root>
+    A document containing LaTeX :
+    <latex>$x=\frac{1+y}{1+2z^2}$</latex>
+</root>
