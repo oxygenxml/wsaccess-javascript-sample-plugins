@@ -9,6 +9,8 @@ The sample plugin "runScenarios" (compatible with Oxygen 17.1 and newer) adds a 
 
 The sample plugin "contributePopupActionDMM" (compatible with Oxygen 17.1 and newer) contributes a contextual menu action called "Run Notepad" on the popup menu of the DITA Maps Manager view. When the action is called, it attempts to execute the Notepad.exe process and open the referenced topic with it.
 
+The sample plugin "contributePopupActionTextPage" (compatible with Oxygen 17.1 and newer) contributes a contextual menu action called "Uppercase" on the popup menu of the Text editing mode. When the action is called, it converts all the selected text content to uppercase.
+
 The sample plugin "latex-images-support" (compatible with Oxygen 18.0 and newer) adds support for rendering Latex images in the Author visual editing mode using the open source JLatex library. The image Latex content needs to be in an XML element called "latex"
 
 The sample plugin “impose-options“ (compatible with Oxygen 18.0 and newer) imports a fixed set of options (saved in XML format) in Oxygen when the application  start. You can save global options to XML from Oxygen by using the Options menu->”Export Global Options” action.
