@@ -18,3 +18,4 @@ The sample plugin “impose-options“ (compatible with Oxygen 18.0 and newer) i
 The sample plugin “customEditorVariables“ (compatible with Oxygen 17.1 and newer) resolves the editor variable ${clipboard} to the text contents of the clipboard. Editor variables are expanded and can be used in various places from Oxygen:
 https://www.oxygenxml.com/doc/versions/17.1/ug-editor/index.html#topics/editor-variables.html
 
+The sample plugin “validationProblemsFilter“ (compatible with Oxygen 17.1 and newer) avoids reporting certain validation problems, in this case it does not report a "file not found" problem when a DITA topic has a cross reference to a missing DITA topic.
