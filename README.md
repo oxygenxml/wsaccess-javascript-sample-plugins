@@ -19,3 +19,5 @@ The sample plugin “customEditorVariables“ (compatible with Oxygen 17.1 and n
 https://www.oxygenxml.com/doc/versions/17.1/ug-editor/index.html#topics/editor-variables.html
 
 The sample plugin “validationProblemsFilter“ (compatible with Oxygen 17.1 and newer) avoids reporting certain validation problems, in this case it does not report a "file not found" problem when a DITA topic has a cross reference to a missing DITA topic.
+
+The sample plugin “preserveAllReferencesAsAbsolute“ forces Oxygen not to resolve any references to other resources as relative. For example if you are working with remote resources via the HTTPS protocol and if you insert a DITA xref or conref to another resource and you want the reference to be inserted as absolute, you can install this plugin to inhibit the regular way in which Oxygen computes relative references.
