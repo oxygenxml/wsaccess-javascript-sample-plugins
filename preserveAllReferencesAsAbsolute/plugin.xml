@@ -1,0 +1,11 @@
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="com.oxygenxml.preserve.absolute.references"
+ name="Preserve all references as absolute."
+ description="This plugin rejects Oxygen's attempt to make references relative to the file where the links are located."
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+</plugin>
