@@ -18,6 +18,8 @@ The sample plugin “impose-options“ (compatible with Oxygen 18.0 and newer) i
 The sample plugin “customEditorVariables“ (compatible with Oxygen 17.1 and newer) resolves the editor variable ${clipboard} to the text contents of the clipboard. Editor variables are expanded and can be used in various places from Oxygen:
 https://www.oxygenxml.com/doc/versions/17.1/ug-editor/index.html#topics/editor-variables.html
 
-The sample plugin “validationProblemsFilter“ (compatible with Oxygen 17.1 and newer) avoids reporting certain validation problems, in this case it does not report a "file not found" problem when a DITA topic has a cross reference to a missing DITA topic.
+The sample plugin “validationProblemsFilter“ (compatible with Oxygen 17.1 and newer) avoids reporting certain validation problems. It has two text configuration files:
+   - The "keysToFilter.txt" contains on each line the key of the error which needs to be filtered (the sample configuration does not report a "file not found" problem when a DITA topic has a cross reference to a missing DITA topic).
+   - The "messageContentsToFilter.txt" contains on each line part of the message from the error which needs to be filtered (the sample configuration does not report a duplicate ID message for the ID attribute with value "id" in a Docbook 5 document).
 
 The sample plugin “preserveAllReferencesAsAbsolute“ forces Oxygen not to resolve any references to other resources as relative. For example if you are working with remote resources via the HTTPS protocol and if you insert a DITA xref or conref to another resource and you want the reference to be inserted as absolute, you can install this plugin to inhibit the regular way in which Oxygen computes relative references.
