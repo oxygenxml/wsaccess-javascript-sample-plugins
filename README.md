@@ -23,3 +23,5 @@ The sample plugin **validationProblemsFilter** (compatible with Oxygen 17.1 and 
    - The **messageContentsToFilter.txt** contains on each line part of the message from the error which needs to be filtered (the sample configuration does not report a duplicate ID message for the ID attribute with value "id" in a Docbook 5 document).
 
 The sample plugin **preserveAllReferencesAsAbsolute** forces Oxygen not to resolve any references to other resources as relative. For example if you are working with remote resources via the HTTPS protocol and if you insert a DITA xref or conref to another resource and you want the reference to be inserted as absolute, you can install this plugin to inhibit the regular way in which Oxygen computes relative references.
+
+The sample plugin **dmmCustomizeTopicTitles** (compatible with Oxygen 18.1 and newer) customizes the topic titles presented in the DITA Maps Manager view. If the topicrefs are "chapter" elements, each displayed chapter title will have a counter in front of it.
