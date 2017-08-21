@@ -4,8 +4,8 @@ function applicationStarted(pluginWorkspaceAccess) {
       canHandle: function (a, b, c) {},
       canHandleNamespace: function (ns) {return false;},
       canHandleNodeContext: function (nodeContext) {return "latex" == nodeContext.getNodeName();},
-      editImage: function(editContext){return null;},
-      editImage: function(url){return false;},
+      editImage: function(editContext){
+      return Packages.javax.swing.JOptionPane.showInputDialog(null, "Latex Equation", editContext.getImageSerializedContent());},
       canHandleFileType: function(type){return "latex" == type || "tex" == type;},
       clearCache: function(){},
       getImageLayoutInformation: function(cp, rc){
