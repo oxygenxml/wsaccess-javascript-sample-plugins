@@ -12,7 +12,7 @@ function applicationStarted(pluginWorkspaceAccess) {
         editImage: function (editContext) {
             jta = new Packages.javax.swing.JTextArea(editContext.getImageSerializedContent());
             scrollPane = new Packages.javax.swing.JScrollPane(jta);
-            scrollPane.setPreferredSize(new Packages.java.awt.Dimension(250, 100));
+            scrollPane.setPreferredSize(new Packages.java.awt.Dimension(500, 300));
             result = Packages.javax.swing.JOptionPane.showConfirmDialog(null, scrollPane,
                 "Edit Latex Equation", Packages.javax.swing.JOptionPane.OK_CANCEL_OPTION,
                 Packages.javax.swing.JOptionPane.PLAIN_MESSAGE);
