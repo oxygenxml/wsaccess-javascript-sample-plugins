@@ -12,10 +12,13 @@ function applicationStarted(pluginWorkspaceAccess) {
     customizePopUpMenu: function (popUp, ditaMapDocumentController) {
      Packages.java.lang.System.err.println("RIGHT CLICK" + popUp);
      tree = ditaMapPage.getDITAMapTreeComponent();
+     refsList = new Packages.java.util.ArrayList();
      /*Selected tree path*/
-     sel = tree.getSelectionPath();
-     if (sel != null) {
-      selectedElement = sel.getLastPathComponent();
+     selPaths = tree.getSelectionPaths();
+     if (selPaths != null && selPaths.length > 0) {
+     /* Compute absolute references for all selected topic references. */
+     for(i = 0; i < selPaths.length; i++){
+      selectedElement = selPaths[i].getLastPathComponent();
       /*Reference attribute*/
       href = selectedElement.getAttribute("href");
       if (href != null) {
@@ -23,12 +26,23 @@ function applicationStarted(pluginWorkspaceAccess) {
         /*Create absolute reference*/
         absoluteRef = new Packages.java.net.URL(selectedElement.getXMLBaseURL(), href.getValue());
         Packages.java.lang.System.err.println("Computed absolute reference " + absoluteRef);
+        refsList.add(absoluteRef);
+       }
+       catch (e1) {
+        Packages.java.lang.System.err.println(e1);
+       }
+      }
+     }
+     try {
+        /*Create absolute reference*/
         mi = new Packages.javax.swing.JMenuItem("Run notepad");
         popUp.add(mi);
         actionPerfObj = {
          actionPerformed: function (e) {
           try {
-           Packages.java.lang.Runtime.getRuntime().exec("notepad.exe " + pluginWorkspaceAccess.getUtilAccess().locateFile(absoluteRef));
+            for(i = 0; i < refsList.size(); i++){
+                Packages.java.lang.Runtime.getRuntime().exec("notepad.exe " + pluginWorkspaceAccess.getUtilAccess().locateFile(refsList.get(i)));
+            }
           }
           catch (e1) {
            e1.printStackTrace();
@@ -40,7 +54,6 @@ function applicationStarted(pluginWorkspaceAccess) {
        catch (e1) {
         Packages.java.lang.System.err.println(e1);
        }
-      }
      }
     }
    }
