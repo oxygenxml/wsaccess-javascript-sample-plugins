@@ -25,3 +25,5 @@ The sample plugin **validationProblemsFilter** (compatible with Oxygen 17.1 and 
 The sample plugin **preserveAllReferencesAsAbsolute** forces Oxygen not to resolve any references to other resources as relative. For example if you are working with remote resources via the HTTPS protocol and if you insert a DITA xref or conref to another resource and you want the reference to be inserted as absolute, you can install this plugin to inhibit the regular way in which Oxygen computes relative references.
 
 The sample plugin **dmmCustomizeTopicTitles** (compatible with Oxygen 18.1 and newer) customizes the topic titles presented in the DITA Maps Manager view. If the topicrefs are "chapter" elements, each displayed chapter title will have a counter in front of it.
+
+The sample plugin **urlChooserActionsProvider** (compatible with Oxygen 12.1 and newer) customizes all the URL Chooser dialogs and panels in Oxygen and adds a custom browse action to the drop down button used to browse for target resources.
