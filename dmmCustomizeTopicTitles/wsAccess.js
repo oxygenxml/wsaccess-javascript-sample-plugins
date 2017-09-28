@@ -11,6 +11,21 @@ function applicationStarted(pluginWorkspaceAccess) {
    
    customizer = {
     customizeComputedTopicrefTitle: function (topicref, targetTopicOrMap, defaultComputedTitle) {
+        //Present profiling attributes set on the root element.
+         if(targetTopicOrMap.getType() == Packages.ro.sync.ecss.extensions.api.node.AuthorNode.NODE_TYPE_DOCUMENT){
+             rootElement = targetTopicOrMap.getRootElement();
+             if(rootElement.getType() == Packages.ro.sync.ecss.extensions.api.node.AuthorNode.NODE_TYPE_ELEMENT){
+              attrsCount = rootElement.getAttributesCount();
+              for (i = 0; i < attrsCount; i++) {
+                attrName = rootElement.getAttributeAtIndex(i);
+                if(attrName.equals("rev") || attrName.equals("audience") || attrName.equals("platform") || attrName.equals("product") || attrName.equals("props")){
+                  //Interesting attribute...
+                  defaultComputedTitle = defaultComputedTitle + " [" + attrName + "='" +  rootElement.getAttribute(attrName) + "']";
+                }
+              }
+            }
+        }
+        //Count chapters and present counter before chapter name.
         if("chapter".equals(topicref.getName())){
           parentOfTopicRef = topicref.getParent();
           cnt = 1;
@@ -22,11 +37,9 @@ function applicationStarted(pluginWorkspaceAccess) {
                 cnt=cnt+1;
             }
           }
-          return cnt + " - " + defaultComputedTitle;
-        } else {
-          //Default title
-          return defaultComputedTitle;
+          defaultComputedTitle = cnt + " - " + defaultComputedTitle;
         }        
+      return defaultComputedTitle;
     }
    }
     ditaMapPage.addNodeRendererCustomizer(new Packages.ro.sync.exml.workspace.api.editor.page.ditamap.DITAMapNodeRendererCustomizer(customizer));
