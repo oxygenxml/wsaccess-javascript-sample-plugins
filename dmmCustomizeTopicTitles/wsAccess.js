@@ -38,7 +38,14 @@ function applicationStarted(pluginWorkspaceAccess) {
             }
           }
           defaultComputedTitle = cnt + " - " + defaultComputedTitle;
-        }        
+        } 
+        //Maybe it's a resource-only topic
+        if(topicref.getAttribute("processing-role") != null){
+           processingRoleValue = topicref.getAttribute("processing-role").getValue();
+           if(processingRoleValue.equals('resource-only')){
+               defaultComputedTitle = defaultComputedTitle + " [resource-only]";
+           }
+        }
       return defaultComputedTitle;
     }
    }
