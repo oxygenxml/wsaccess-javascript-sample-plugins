@@ -3,9 +3,10 @@ function applicationStarted(pluginWorkspaceAccess) {
   
   // Read the properties file that stores mappings from DITA class particle (e.g. "task/task") to icon file path
   var inputStream = null;
+  var properties = null;
   try {
     inputStream = new Packages.java.io.FileInputStream(new Packages.java.io.File(new Packages.java.net.URI(jsDirURL + "/icons.properties")));
-    var properties = new Packages.java.util.Properties();
+    properties = new Packages.java.util.Properties();
     properties.load(inputStream);
   }
   catch (err) {
@@ -38,7 +39,7 @@ function applicationStarted(pluginWorkspaceAccess) {
         getRenderingInformation: function (context) {
           var renderingInfo = null;
           var topicRefTargetInfo = context.getTopicRefTargetInfo();
-          if (topicRefTargetInfo) {
+          if (topicRefTargetInfo && properties) {
             // Get the "class" attribute's value for the current referred topic
             clazz = topicRefTargetInfo.getProperty(Packages.ro.sync.exml.workspace.api.standalone.ditamap.TopicRefTargetInfo.CLASS_VALUE);
             if (clazz) {
