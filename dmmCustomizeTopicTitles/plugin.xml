@@ -1,8 +1,8 @@
 <!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
 <plugin
- id="com.oxygenxml.popup.dmm.customize.topic.titles"
- name="Customize the titles of topics referenced in the DITA Maps manager."
- description="Add chapter number before each topic title shown in the DITA Maps Manager"
+ id="com.oxygenxml.dmm.customize.topic.titles.and.icons"
+ name="Customize the titles and icons of the topics referenced in the DITA Maps manager."
+ description="Add chapter number before each topic title shown in the DITA Maps Manager, add the profiling attributes from the topic root in the title, and also customize the topicref icon based on the value of the 'class' attribute from the root of the referenced topic."
  version="1.0"
  vendor="Syncro Soft"
  class="ro.sync.exml.plugin.Plugin"
