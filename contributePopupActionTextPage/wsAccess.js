@@ -1,7 +1,7 @@
 function applicationStarted(pluginWorkspaceAccess) {
  Packages.java.lang.System.err.println("Application started " + pluginWorkspaceAccess);
  edChangedListener = {
-  /*Called when a DITA Map is opened*/
+  /*Called when a document  is opened*/
   editorOpened: function (editorLocation) {
    Packages.java.lang.System.err.println("\nrunning " + editorLocation);
    /*Get the opened DITA Map*/
