@@ -1,0 +1,11 @@
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="com.oxygenxml.popup.dmm.export.zip"
+ name="Upload a ZIP with the DITA Map contents"
+ description="Plugin adds contextual menu action to DITA Maps Manager pop-up menu. The action uploads a ZIP with the DITA Map contents to a certain HTTP server"
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+</plugin>
