@@ -27,3 +27,5 @@ The sample plugin **preserveAllReferencesAsAbsolute** forces Oxygen not to resol
 The sample plugin **dmmCustomizeTopicTitlesAndIcons** (compatible with Oxygen 18.1 and newer) customizes the topic titles and the icons presented in the DITA Maps Manager view. If the topicrefs are "chapter" elements, each displayed chapter title will have a counter in front of it. For topicrefs that refer DITA tasks, the plugin contributes with an icon that is different from the default one.
 
 The sample plugin **urlChooserActionsProvider** (compatible with Oxygen 12.1 and newer) customizes all the URL Chooser dialogs and panels in Oxygen and adds a custom browse action to the drop down button used to browse for target resources.
+
+The sample plugin **customizeEditorTabText** (compatible with Oxygen 12.1 and newer) tries to detect a version folder in each opened XML document's path and prepend that version to the file name in the opened XML document tab. This is useful if you open the same XML file name from two different folder paths as the tab text will show directly the version from which you opened the XML.
