@@ -29,11 +29,11 @@ function applicationStarted(pluginWorkspaceAccess) {
         editorOpened: function (editorLocation) {
             
             // Get the opened DITA Map
-            editor = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.PluginWorkspace.DITA_MAPS_EDITING_AREA);
-            ditaMapPage = editor.getCurrentPage();
+            var editor = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.PluginWorkspace.DITA_MAPS_EDITING_AREA);
+            var ditaMapPage = editor.getCurrentPage();
             
             // DITA map node renderer customizer
-            customizer = {
+            var customizer = {
                 
                 // Get rendering information for the topicrefs in the DITA Maps Manager
                 getRenderingInformation: function (context) {
