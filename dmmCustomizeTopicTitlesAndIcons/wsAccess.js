@@ -77,42 +77,53 @@ function applicationStarted(pluginWorkspaceAccess) {
                 
                 // Customize the topicref titles
                 customizeComputedTopicrefTitle: function (topicref, targetTopicOrMap, defaultComputedTitle) {
+                    var newComputedTitle = defaultComputedTitle;
+                    var currentTopicref = topicref;
                     // Present profiling attributes set on the root element.
                     if (targetTopicOrMap.getType() == Packages.ro.sync.ecss.extensions.api.node.AuthorNode.NODE_TYPE_DOCUMENT) {
-                        rootElement = targetTopicOrMap.getRootElement();
+                        var rootElement = targetTopicOrMap.getRootElement();
                         if (rootElement.getType() == Packages.ro.sync.ecss.extensions.api.node.AuthorNode.NODE_TYPE_ELEMENT) {
-                            attrsCount = rootElement.getAttributesCount();
-                            for (i = 0; i < attrsCount; i++) {
-                                attrName = rootElement.getAttributeAtIndex(i);
+                            var attrsCount = rootElement.getAttributesCount();
+                            for (var i = 0; i < attrsCount; i++) {
+                                var attrName = rootElement.getAttributeAtIndex(i);
                                 if (attrName.equals("rev") || attrName.equals("audience") || attrName.equals("platform") || attrName.equals("product") || attrName.equals("props")) {
                                     // Interesting attribute...
-                                    defaultComputedTitle = defaultComputedTitle + " [" + attrName + "='" + rootElement.getAttribute(attrName) + "']";
+                                    newComputedTitle = newComputedTitle + " [" + attrName + "='" + rootElement.getAttribute(attrName) + "']";
                                 }
                             }
                         }
                     }
                     // Count chapters and present counter before chapter name.
-                    var chapterCnt = countChapters(topicref);
+                    var chapterCnt = countChapters(currentTopicref);
                     if (chapterCnt > 0) {
-                        defaultComputedTitle = chapterCnt + " - " + defaultComputedTitle;
+                        newComputedTitle = chapterCnt + " - " + newComputedTitle;
                     } else {
                         //Maybe this is the child topicref of a chapter, count this as well
-                        chapterCnt = countChapters(topicref.getParent());
-                        if (chapterCnt > 0) {
-                            var subChapterCnt = countSiblings(topicref);
-                            if (subChapterCnt > 0) {
-                                defaultComputedTitle = chapterCnt + "." + subChapterCnt + " - " + defaultComputedTitle;
+                        var ancestorChapter = getAncestorChapter(currentTopicref);
+                        if (ancestorChapter != null) {
+                            chapterCnt = countChapters(ancestorChapter);
+                            if (chapterCnt > 0) {
+                                var cntAccumulator = "";
+                                var current = currentTopicref;
+                                while (current != null && current != ancestorChapter) {
+                                    var subChapterCnt = countSiblings(current);
+                                    if (subChapterCnt > 0) {
+                                        cntAccumulator = subChapterCnt + "." + cntAccumulator;
+                                    }
+                                    current = current.getParent();
+                                }
+                                newComputedTitle = chapterCnt + "." + cntAccumulator + " - " + newComputedTitle;
                             }
                         }
                     }
                     // Maybe it's a resource-only topic
-                    if (topicref.getAttribute("processing-role") != null) {
-                        processingRoleValue = topicref.getAttribute("processing-role").getValue();
+                    if (currentTopicref.getAttribute("processing-role") != null) {
+                        var processingRoleValue = currentTopicref.getAttribute("processing-role").getValue();
                         if (processingRoleValue.equals('resource-only')) {
-                            defaultComputedTitle = defaultComputedTitle + " [resource-only]";
+                            newComputedTitle = newComputedTitle + " [resource-only]";
                         }
                     }
-                    return defaultComputedTitle;
+                    return newComputedTitle;
                 }
             }
             // Add customizer
@@ -131,14 +142,14 @@ function applicationClosing(pluginWorkspaceAccess) {
 function countChapters(topicref) {
     var cnt = 0;
     if (topicref != null) {
-        if ("chapter".equals(topicref.getName())) {
+        if (typeof topicref.getName != "undefined" && "chapter".equals(topicref.getName())) {
             var parentOfTopicRef = topicref.getParent();
             cnt = 1;
             var nodes = parentOfTopicRef.getContentNodes();
-            for (i = 0; i < nodes.size(); i++) {
+            for (var i = 0; i < nodes.size(); i++) {
                 if (nodes. get (i) == topicref) {
                     break;
-                } else if ("chapter".equals(nodes. get (i).getName())) {
+                } else if (typeof nodes. get (i).getName != "undefined" && "chapter".equals(nodes. get (i).getName())) {
                     cnt = cnt + 1;
                 }
             }
@@ -153,12 +164,24 @@ function countSiblings(topicref) {
         var parentOfTopicRef = topicref.getParent();
         cnt = 1;
         var nodes = parentOfTopicRef.getContentNodes();
-        for (i = 0; i < nodes.size(); i++) {
+        for (var i = 0; i < nodes.size(); i++) {
             if (nodes. get (i) == topicref) {
                 break;
             } else {
                 cnt = cnt + 1;
             }
+        }
+    }
+    return cnt;
+}
+
+function getAncestorChapter(topicref) {
+    var cnt = 0;
+    if (topicref != null) {
+        if (typeof topicref.getName != "undefined" && "chapter".equals(topicref.getName())) {
+            return topicref;
+        } else {
+            return getAncestorChapter(topicref.getParent());
         }
     }
     return cnt;
