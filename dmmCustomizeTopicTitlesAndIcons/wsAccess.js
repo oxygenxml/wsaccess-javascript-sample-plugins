@@ -75,6 +75,10 @@ function applicationStarted(pluginWorkspaceAccess) {
                     return renderingInfo;
                 },
                 
+                customizeRenderedTopicrefTitle: function(topicref, defaultComputedTitle){
+                    return customizeRenderedTopicrefTitleCommon(topicref, defaultComputedTitle);
+                }, 
+                
                 // Customize the topicref titles
                 customizeComputedTopicrefTitle: function (topicref, targetTopicOrMap, defaultComputedTitle) {
                     var newComputedTitle = defaultComputedTitle;
@@ -93,35 +97,24 @@ function applicationStarted(pluginWorkspaceAccess) {
                             }
                         }
                     }
-                    // Count chapters and present counter before chapter name.
-                    var chapterCnt = countChapters(currentTopicref);
-                    if (chapterCnt > 0) {
-                        newComputedTitle = chapterCnt + " - " + newComputedTitle;
-                    } else {
-                        //Maybe this is the child topicref of a chapter, count this as well
-                        var ancestorChapter = getAncestorChapter(currentTopicref);
-                        if (ancestorChapter != null) {
-                            chapterCnt = countChapters(ancestorChapter);
-                            if (chapterCnt > 0) {
-                                var cntAccumulator = "";
-                                var current = currentTopicref;
-                                while (current != null && current != ancestorChapter) {
-                                    var subChapterCnt = countSiblings(current);
-                                    if (subChapterCnt > 0) {
-                                        cntAccumulator = subChapterCnt + "." + cntAccumulator;
-                                    }
-                                    current = current.getParent();
-                                }
-                                newComputedTitle = chapterCnt + "." + cntAccumulator + " - " + newComputedTitle;
-                            }
-                        }
-                    }
+                    
                     // Maybe it's a resource-only topic
                     if (currentTopicref.getAttribute("processing-role") != null) {
                         var processingRoleValue = currentTopicref.getAttribute("processing-role").getValue();
                         if (processingRoleValue.equals('resource-only')) {
                             newComputedTitle = newComputedTitle + " [resource-only]";
                         }
+                    }
+                    /* In Oxygen version 21 and newer we have a new API method called "customizeRenderedTopicrefTitle" which
+                     * is better when computing titles which depend on the position in the DITA Map of a particular topicref
+                     * For older Oxygen versions we can compute the counter value here. */
+                    var version = pluginWorkspaceAccess.getVersion();
+                    var indexOfDot = version.indexOf(".");
+                    if(indexOfDot != -1){
+                        version = version.substr(0, indexOfDot);
+                    }
+                    if(Number(version) < 21){
+                      newComputedTitle = customizeRenderedTopicrefTitleCommon(topicref, defaultComputedTitle);
                     }
                     return newComputedTitle;
                 }
@@ -185,4 +178,33 @@ function getAncestorChapter(topicref) {
         }
     }
     return cnt;
+}
+
+function customizeRenderedTopicrefTitleCommon(topicref, defaultComputedTitle){
+    var newComputedTitle = defaultComputedTitle;
+    var currentTopicref = topicref;
+     // Count chapters and present counter before chapter name.
+    var chapterCnt = countChapters(currentTopicref);
+    if (chapterCnt > 0) {
+        newComputedTitle = chapterCnt + " - " + newComputedTitle;
+    } else {
+        //Maybe this is the child topicref of a chapter, count this as well
+        var ancestorChapter = getAncestorChapter(currentTopicref);
+        if (ancestorChapter != null) {
+            chapterCnt = countChapters(ancestorChapter);
+            if (chapterCnt > 0) {
+                var cntAccumulator = "";
+                var current = currentTopicref;
+                while (current != null && current != ancestorChapter) {
+                    var subChapterCnt = countSiblings(current);
+                    if (subChapterCnt > 0) {
+                        cntAccumulator = subChapterCnt + "." + cntAccumulator;
+                    }
+                    current = current.getParent();
+                }
+                newComputedTitle = chapterCnt + "." + cntAccumulator + " - " + newComputedTitle;
+            }
+        }
+    }
+    return newComputedTitle;
 }
