@@ -1,13 +1,7 @@
 function applicationStarted(pluginWorkspaceAccess) {
- messageContentsList = readConfigFileContents(pluginWorkspaceAccess, "messageContentsToFilter.txt");
- keysToFilter = readConfigFileContents(pluginWorkspaceAccess, "keysToFilter.txt");
- edChangedListener = {
-  /*Called when an editor  is opened*/
-  editorOpened: function (editorLocation) {
-   /*Get the opened editor*/
-   editor = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.PluginWorkspace.MAIN_EDITING_AREA);
-   /*Add validation problems filter*/
-   validationProblemsFilter = {
+ var messageContentsList = readConfigFileContents(pluginWorkspaceAccess, "messageContentsToFilter.txt");
+ var keysToFilter = readConfigFileContents(pluginWorkspaceAccess, "keysToFilter.txt");
+ var validationProblemsFilter = {
     filterValidationProblems: function (validationProblems) {
      problemsList = validationProblems.getProblemsList();
       if(problemsList != null){
@@ -37,13 +31,32 @@ function applicationStarted(pluginWorkspaceAccess) {
       }
     }
    }
+ 
+ var mainEdChangedListener = {
+  /*Called when an editor  is opened*/
+  editorOpened: function (editorLocation) {
+   /*Get the opened editor*/
+   editor = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.PluginWorkspace.MAIN_EDITING_AREA);
+   /*Add validation problems filter*/
    editor.addValidationProblemsFilter(new JavaAdapter(Packages.ro.sync.exml.workspace.api.editor.validation.ValidationProblemsFilter, validationProblemsFilter));
   }
  }
- edChangedListener = new JavaAdapter(Packages.ro.sync.exml.workspace.api.listeners.WSEditorChangeListener, edChangedListener);
  pluginWorkspaceAccess.addEditorChangeListener(
- edChangedListener,
+ new JavaAdapter(Packages.ro.sync.exml.workspace.api.listeners.WSEditorChangeListener, mainEdChangedListener),
  Packages.ro.sync.exml.workspace.api.PluginWorkspace.MAIN_EDITING_AREA);
+ 
+  var ditaMapEdChangedListener = {
+  /*Called when an editor  is opened*/
+  editorOpened: function (editorLocation) {
+   /*Get the opened editor*/
+   editor = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.PluginWorkspace.DITA_MAPS_EDITING_AREA);
+   /*Add validation problems filter*/
+   editor.addValidationProblemsFilter(new JavaAdapter(Packages.ro.sync.exml.workspace.api.editor.validation.ValidationProblemsFilter, validationProblemsFilter));
+  }
+ }
+ pluginWorkspaceAccess.addEditorChangeListener(
+ new JavaAdapter(Packages.ro.sync.exml.workspace.api.listeners.WSEditorChangeListener, ditaMapEdChangedListener),
+ Packages.ro.sync.exml.workspace.api.PluginWorkspace.DITA_MAPS_EDITING_AREA);
 }
 
 function applicationClosing(pluginWorkspaceAccess) {
