@@ -31,3 +31,9 @@ The sample plugin **dmmCustomizeTopicTitlesAndIcons** (compatible with Oxygen 18
 The sample plugin **urlChooserActionsProvider** (compatible with Oxygen 12.1 and newer) customizes all the URL Chooser dialogs and panels in Oxygen and adds a custom browse action to the drop down button used to browse for target resources.
 
 The sample plugin **customizeEditorTabText** (compatible with Oxygen 12.1 and newer) tries to detect a version folder in each opened XML document's path and prepend that version to the file name in the opened XML document tab. This is useful if you open the same XML file name from two different folder paths as the tab text will show directly the version from which you opened the XML.
+
+Copyright and License
+---------------------
+Copyright 2018 Syncro Soft SRL.
+
+This project is licensed under [Apache License 2.0](https://github.com/oxygenxml/wsaccess-javascript-sample-plugins/blob/master/LICENSE)
