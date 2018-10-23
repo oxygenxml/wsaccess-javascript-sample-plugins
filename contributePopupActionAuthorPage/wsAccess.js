@@ -1,3 +1,4 @@
+/* Example for working with the Author editing mode, started from: https://www.oxygenxml.com/forum/post49889.html#p49886 */
 function applicationStarted(pluginWorkspaceAccess) {
  Packages.java.lang.System.err.println("Application started " + pluginWorkspaceAccess);
  var edChangedListener = {
