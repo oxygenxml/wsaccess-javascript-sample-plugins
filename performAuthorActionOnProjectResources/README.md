@@ -1,4 +1,4 @@
-# Contribute Action to Context Menu in Project View
+# Perform Author Action On Project Resources
 This add-on contributes an action in the contextual menu of the **Project View**.
 The action invokes an Author action from Oxygen for all the selected files from the Project View. 
 

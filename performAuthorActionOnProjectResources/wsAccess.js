@@ -87,7 +87,7 @@ function applyActionToSelectedFiles(pluginWorkspaceAccess, actionId){
 	return performed;
 }
 
-/* *
+/**
  * Recursively get all handled binary file.
  */
 function getFilesRecursively(files, dir, utilAccess) {
@@ -97,16 +97,16 @@ function getFilesRecursively(files, dir, utilAccess) {
 		  getFilesRecursively(files, child[i], utilAccess);
 		}
 	} else {
-	   var dirURL	= dir.toURI().toURL()
-	   if(!utilAccess.isUnhandledBinaryResourceURL(dirURL)) {
+	   var fileURL = dir.toURI().toURL()
+	   if(!utilAccess.isUnhandledBinaryResourceURL(fileURL)) {
 	       files.add(dir);
 	   }
 	}
 	return files;
 } 
 
-/* *
- *  Performe the extension action with the given ID to the given file.
+/**
+ *  Perform the extension action with the given ID to the given file.
  */
 function performActionOnFile(file, actionId, editorComponentProvider, pluginWorkspaceAccess){
    var message = null;
@@ -132,7 +132,7 @@ function performActionOnFile(file, actionId, editorComponentProvider, pluginWork
 		              new Packages.ro.sync.document.DocumentPositionedInfo(
 		                  Packages.ro.sync.document.DocumentPositionedInfo.SEVERITY_ERROR,
 		                  message,
-		                  "file:/"+ file.getAbsolutePath()),
+		                  file.toURI().toURL().toString()),
 		              Packages.ro.sync.exml.workspace.api.results.ResultsManager.ResultType.PROBLEM,
 		              true, false);
     }

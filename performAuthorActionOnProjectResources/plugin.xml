@@ -1,7 +1,7 @@
 <!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
 <plugin
- id="com.oxygenxml.contribute.action.to.contextul.menu.in.project.view"
- name="Contribute Action to Context Menu in Project View"
+ id="com.oxygenxml.perform.author.action.on.project.resources"
+ name="Perform Author Action On Project Resources"
  description="Adds an action in the Project View pop-up menu that invokes an Author action form Oxygen for all selected files.
 	The action can be changed by modifying the ID from 'authorActionId' element in 'config.xml'."
  version="1.0"

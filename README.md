@@ -7,6 +7,8 @@ Each of the folders in this repository is a sample plugin which use this technol
 
 The sample plugin **OpenInTerminalProjectContextualAction** adds to the Oxygen Project contextual menu an action called "Show in Terminal" which opens a command console in the currently selected Project folder. The action only works for now on Mac OSX.
 
+The sample plugin **performAuthorActionOnProjectResources** (compatible with Oxygen 19.1 and newer) adds an action to the Oxygen Project contextual menu. The action invokes an Author action from Oxygen for all the selected files.
+
 The sample plugin **runScenarios** (compatible with Oxygen 17.1 and newer) adds a toolbar action called **Transform to PDF**. When the button is pressed, it invokes an already defined transformation scenario called **DITA PDF** on the current opened XML document.
 
 The sample plugin **contributePopupActionDMM** (compatible with Oxygen 17.1 and newer) contributes a contextual menu action called **Run Notepad** on the popup menu of the DITA Maps Manager view. When the action is called, it attempts to execute the Notepad.exe process and open the referenced topics with it.
