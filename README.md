@@ -5,6 +5,8 @@ https://www.oxygenxml.com/doc/ug-editor/topics/workspace-access-plugin-js.html
 
 Each of the folders in this repository is a sample plugin which use this technology to alter different behaviors in Oxygen. So if you take each of these folders, copy it to the **OXYGEN_INSTALL_DIR/plugins** folder and start Oxygen, the plugin will start to work.
 
+The sample plugin **OpenSaveXSLTFilter** applies an XSLT filter file called "open.xsl" when the XML document is opened and an XSLT filter file called "save.xsl" when the XML document is saved to disk.
+
 The sample plugin **OpenInTerminalProjectContextualAction** adds to the Oxygen Project contextual menu an action called "Show in Terminal" which opens a command console in the currently selected Project folder. The action only works for now on Mac OSX.
 
 The sample plugin **performAuthorActionOnProjectResources** (compatible with Oxygen 19.1 and newer) adds an action to the Oxygen Project contextual menu. The action invokes an Author action from Oxygen for all the selected files.
