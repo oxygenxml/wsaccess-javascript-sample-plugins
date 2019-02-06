@@ -5,13 +5,9 @@ function applicationStarted(pluginWorkspaceAccess) {
             var editorAccess = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.standalone.StandalonePluginWorkspace.MAIN_EDITING_AREA);
             if (editorAccess.getDocumentTypeInformation() != null) {
                 //It's an XML document
-                var content = Packages.ro.sync.basic.io.IOUtil.read(editorAccess.createContentReader()).toString();
-                var doctypeDeclaration = "";
-                var indexOfDoctype = content.indexOf("<!DOCTYPE");
-                if (indexOfDoctype != -1) {
-                    doctypeDeclaration = content.substring(indexOfDoctype, content.indexOf(">", indexOfDoctype) + 1);
-                }
-                Packages.java.lang.System.err.println("\nFile = " + editorLocation + " DOCTYPE " + doctypeDeclaration);
+                var content = readContent(editorAccess.createContentReader());
+                content = content.replaceAll("(<!DOCTYPE .*?>)", "<!--DOCTYPE DECL:$1-->");
+                Packages.java.lang.System.err.println("\nFile = " + editorLocation);
                 try {
                     var transformer = pluginWorkspaceAccess.getXMLUtilAccess().createXSLTTransformer(
                     new Packages.javax.xml.transform.stream.StreamSource(jsDirURL + "/open.xsl"),
@@ -19,18 +15,11 @@ function applicationStarted(pluginWorkspaceAccess) {
                     Packages.ro.sync.exml.workspace.api.util.XMLUtilAccess.TRANSFORMER_SAXON_ENTERPRISE_EDITION, false);
                     var sw = new Packages.java.io.StringWriter();
                     var streamRes = new Packages.javax.xml.transform.stream.StreamResult(sw);
-                    transformer.transform(new Packages.javax.xml.transform.stream.StreamSource(editorAccess.createContentReader(), editorAccess.getEditorLocation().toString()), streamRes);
+                    transformer.transform(new Packages.javax.xml.transform.stream.StreamSource(new Packages.java.io.StringReader(content), editorAccess.getEditorLocation().toString()), streamRes);
                     sw.close();
                     var newContent = sw.toString();
-                    indexOfDoctype = newContent.indexOf("<!DOCTYPE");
-                    if (indexOfDoctype != -1) {
-                        //The XSLT generated its own doctype declaration, use that instead of the original DOCTYPE declaration
-                        doctypeDeclaration = "";
-                    }
-                    editorAccess.reloadContent(new Packages.java.io.StringReader(
-                    //Preserve the old doctype declaration
-                    doctypeDeclaration +
-                    newContent));
+                    newContent = newContent.replaceAll("<!--DOCTYPE DECL:(.*?)-->", "\n$1\n");
+                    editorAccess.reloadContent(new Packages.java.io.StringReader(newContent));
 					//And set it as not modified
 					editorAccess.setModified(false);
                 }
@@ -51,29 +40,21 @@ function applicationStarted(pluginWorkspaceAccess) {
                             lastModified = file.lastModified();
                         }
                         
-                        var doctypeDeclaration = "";
-                        var indexOfDoctype = content.indexOf("<!DOCTYPE");
-                        if (indexOfDoctype != -1) {
-                            doctypeDeclaration = content.substring(indexOfDoctype, content.indexOf(">", indexOfDoctype) + 1);
-                        }
+                        var content = readContent(editorAccess.createContentReader());
+                        content = content.replaceAll("(<!DOCTYPE .*?>)", "<!--DOCTYPE DECL:$1-->");
                         
                         var transformer = pluginWorkspaceAccess.getXMLUtilAccess().createXSLTTransformer(
                         new Packages.javax.xml.transform.stream.StreamSource(jsDirURL + "/save.xsl"), null,
                         Packages.ro.sync.exml.workspace.api.util.XMLUtilAccess.TRANSFORMER_SAXON_ENTERPRISE_EDITION, false);
                         var sw = new Packages.java.io.StringWriter();
                         var streamRes = new Packages.javax.xml.transform.stream.StreamResult(sw);
-                        transformer.transform(new Packages.javax.xml.transform.stream.StreamSource(editorAccess.createContentReader(), editorAccess.getEditorLocation().toString()), streamRes);
+                        transformer.transform(new Packages.javax.xml.transform.stream.StreamSource(new Packages.java.io.StringReader(content), editorAccess.getEditorLocation().toString()), streamRes);
                         sw.close();
                         var newContent = sw.toString();
-                        indexOfDoctype = newContent.indexOf("<!DOCTYPE");
-                        if (indexOfDoctype != -1) {
-                            //The XSLT generated its own doctype declaration, use that instead of the original DOCTYPE declaration
-                            doctypeDeclaration = "";
-                        }
-                        
+                        newContent = newContent.replaceAll("<!--DOCTYPE DECL:(.*?)-->", "\n$1\n");                        
                         
                         var writer = new Packages.java.io.OutputStreamWriter(editorAccess.getEditorLocation().openConnection().getOutputStream(), editorAccess.getEncodingForSerialization());
-                        writer.write(doctypeDeclaration + newContent);
+                        writer.write(newContent);
                         writer.close();
                         if (lastModified != -1) {
                             //Reset the last modified flag
@@ -96,4 +77,24 @@ function applicationStarted(pluginWorkspaceAccess) {
 
 
 function applicationClosing(pluginWorkspaceAccess) {
+}
+
+function readContent(reader){
+    br = new Packages.java.io.BufferedReader(reader);
+    line = null;
+    stringBuilder = new Packages.java.lang.StringBuilder();
+
+    try {
+      while((line = br.readLine()) != null) {
+        stringBuilder.append(line);
+        stringBuilder.append("\n");
+      }
+    } finally {
+      try {
+        reader.close();
+      } catch (e) {
+        e.print();
+      }
+    }
+    return stringBuilder.toString();
 }
