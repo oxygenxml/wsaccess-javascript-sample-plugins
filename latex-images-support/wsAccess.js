@@ -7,7 +7,7 @@ function applicationStarted(pluginWorkspaceAccess) {
             return false;
         },
         canHandleNodeContext: function (nodeContext) {
-            return "latex" == nodeContext.getNodeName();
+            return "latex" == nodeContext.getNodeName() || ("foreign" == nodeContext.getNodeName() && "embed-latex" == nodeContext.getAttributeValue("outputclass"));
         },
         editImage: function (editContext) {
             jta = new Packages.javax.swing.JTextArea(editContext.getImageSerializedContent());
