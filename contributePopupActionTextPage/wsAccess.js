@@ -1,15 +1,9 @@
 function applicationStarted(pluginWorkspaceAccess) {
  Packages.java.lang.System.err.println("Application started " + pluginWorkspaceAccess);
- edChangedListener = {
-  /*Called when a document  is opened*/
-  editorOpened: function (editorLocation) {
-   Packages.java.lang.System.err.println("\nrunning " + editorLocation);
-   /*Get the opened DITA Map*/
-   editor = pluginWorkspaceAccess.getEditorAccess(editorLocation, Packages.ro.sync.exml.workspace.api.PluginWorkspace.MAIN_EDITING_AREA);
-   textPage = editor.getCurrentPage();
-   /*Add listener called when right click is performed in the DITA Maps manager view*/
+ 
+    /*Add listener called when right click is performed in the text page*/
    customizerObj = {
-    customizePopUpMenu: function (popUp, textPage) {
+    customizeTextPopUpMenu: function (popUp, textPage) {
      Packages.java.lang.System.err.println("RIGHT CLICK" + popUp);
       try {
         /*Create absolute reference*/
@@ -34,14 +28,9 @@ function applicationStarted(pluginWorkspaceAccess) {
        }
     }
    }
-   
-   textPage.addPopUpMenuCustomizer(new Packages.ro.sync.exml.workspace.api.editor.page.text.TextPopupMenuCustomizer(customizerObj));
-  }
- }
- edChangedListener = new JavaAdapter(Packages.ro.sync.exml.workspace.api.listeners.WSEditorChangeListener, edChangedListener);
- pluginWorkspaceAccess.addEditorChangeListener(
- edChangedListener,
- Packages.ro.sync.exml.workspace.api.PluginWorkspace.MAIN_EDITING_AREA);
+
+    //Add the popup menu customizer.
+    pluginWorkspaceAccess.addMenusAndToolbarsContributorCustomizer(new JavaAdapter(Packages.ro.sync.exml.workspace.api.standalone.actions.MenusAndToolbarsContributorCustomizer, customizerObj));
 }
 
 function applicationClosing(pluginWorkspaceAccess) {
