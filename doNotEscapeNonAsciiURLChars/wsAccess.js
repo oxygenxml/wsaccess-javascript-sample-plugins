@@ -1,16 +1,20 @@
 function applicationStarted(pluginWorkspaceAccess) {
  Packages.java.lang.System.err.println("Application started " + pluginWorkspaceAccess);
+ var calledFromOwnCode = false;
  referenceResolver = {
   /*Called when a reference is resolved*/
   makeRelative: function (baseURL, childURL) {
-          try {
-            if(!baseURL.toString().endsWith("/")) {
-              lastIndexOfSlash = baseURL.getPath().lastIndexOf('/');
-              baseURL = new Packages.java.net.URL(baseURL.getProtocol(), baseURL.getHost(), baseURL.getPort(), baseURL.getPath().substring(0, lastIndexOfSlash + 1));
+            if(calledFromOwnCode){
+                return null;
             }
-            return  Packages.java.net.URI.create(Packages.ro.sync.basic.util.URLUtil.uncorrect(baseURL.toString())).relativize(new Packages.java.net.URI(Packages.ro.sync.basic.util.URLUtil.uncorrect(childURL.toString()))).toString();
+          try {
+            calledFromOwnCode = true;
+            ret = Packages.ro.sync.basic.util.URLUtil.makeRelative(new Packages.java.net.URL(Packages.ro.sync.basic.util.URLUtil.uncorrect(baseURL.toString())), new Packages.java.net.URL(Packages.ro.sync.basic.util.URLUtil.uncorrect(childURL.toString()))); 
+            calledFromOwnCode = false;
+            return ret;
           } catch (e) {
             e.printStackTrace();
+            calledFromOwnCode = false;
           }
           return null;
   }
