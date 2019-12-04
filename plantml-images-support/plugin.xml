@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="com.oxygenxml.plantuml.support"
+ name="Add support for PlantUML Images"
+ description="Add support to display PlantUML images in the Author visual editing mode."
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <runtime>
+  <library name="lib/plantuml.jar" scope="global"/>
+ </runtime>
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+ <extension type="AuthorStylesheet" href="spacePreserveUMLContent.css"/>
+</plugin>
