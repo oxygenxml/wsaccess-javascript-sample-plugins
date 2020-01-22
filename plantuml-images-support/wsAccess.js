@@ -42,6 +42,10 @@ function getPlantUMLImage(pluginWorkspaceAccess, cp, rc) {
     plantumlContent = cp.getImageSerializedContent();
     plantumlContent = pluginWorkspaceAccess.getXMLUtilAccess().unescapeAttributeValue(plantumlContent.substring(plantumlContent.indexOf(">") + 1, plantumlContent.lastIndexOf("<")));
     format = new Packages.net.sourceforge.plantuml.FileFormatOption(Packages.net.sourceforge.plantuml.FileFormat.PNG);
+    if(cp.getUrl() != null && cp.getUrl().getProtocol().equals("file") && cp.getUrl().toURI() != null){
+        newCurrentDir = new Packages.java.io.File(cp.getUrl().toURI()).getParentFile();
+        Packages.java.lang.System.setProperty("plantuml.include.path", newCurrentDir.getAbsolutePath());
+    }
     reader = new Packages.net.sourceforge.plantuml.SourceStringReader(plantumlContent);
     os = new Packages.java.io.ByteArrayOutputStream();
 	// Write the image to "os"
