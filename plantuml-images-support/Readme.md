@@ -1,4 +1,4 @@
-# Support to render PlantUML diagrams in the Author visual editing mode
+# Support to Render PlantUML Diagrams in the Author Visual Editing Mode
 
 This plugin allows the Author visual editing mode to render PlantUML diagrams embedded in DITA topics.
 
