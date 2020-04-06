@@ -1,0 +1,11 @@
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="com.oxygenxml.custom.project.selection.editor.variable"
+ name="Expand a ${projectSelectedResources} editor variable."
+ description="Add possibility to resolve the ${projectSelectedResources} editor variable to a list of ; separated URLs."
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+</plugin>
