@@ -1,7 +1,7 @@
 # Editor variable which expands to the project selected URLs
 
 The plugin adds a resolver which expands in Oxygen the **${projectSelectedResources}**
-editor variable to a string containing all file URLs separated by ";".
+editor variable to a string containing URL representations of all project files separated by ";".
 
 As an usage example, assume you have an XSLT stylesheet like this:
 
