@@ -1,3 +1,6 @@
 foreign[outputclass='embed-plant-uml']{
     white-space:pre;
 }
+programlisting[language='embed-plant-uml']{
+    display:inline;
+}
