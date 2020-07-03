@@ -7,7 +7,9 @@ function applicationStarted(pluginWorkspaceAccess) {
             return false;
         },
         canHandleNodeContext: function (nodeContext) {
-            return "plantuml" == nodeContext.getNodeName() || ("foreign" == nodeContext.getNodeName() && "embed-plant-uml" == nodeContext.getAttributeValue("outputclass"));
+            return "plantuml" == nodeContext.getNodeName() 
+		|| ("foreign" == nodeContext.getNodeName() && "embed-plant-uml" == nodeContext.getAttributeValue("outputclass"))
+		|| ("programlisting" == nodeContext.getNodeName() && "embed-plant-uml" == nodeContext.getAttributeValue("language"));
         },
         editImage: function (editContext) {
             jta = new Packages.javax.swing.JTextArea(editContext.getImageSerializedContent());
