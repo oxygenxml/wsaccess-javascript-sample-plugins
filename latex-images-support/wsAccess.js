@@ -1,5 +1,4 @@
 function applicationStarted(pluginWorkspaceAccess) {
-    Packages.java.lang.System.err.println("Application started " + pluginWorkspaceAccess);
     imageHandler = {
         canHandle: function (a, b, c) {
         },
@@ -40,9 +39,22 @@ function applicationStarted(pluginWorkspaceAccess) {
 
 function getLatexImage(pluginWorkspaceAccess, cp, rc) {
     latexContent = cp.getImageSerializedContent();
+    try{
     latexContent = pluginWorkspaceAccess.getXMLUtilAccess().unescapeAttributeValue(latexContent.substring(latexContent.indexOf(">") + 1, latexContent.lastIndexOf("<")));
     formula = new Packages.org.scilab.forge.jlatexmath.TeXFormula(latexContent);
     return formula.createBufferedImage(Packages.org.scilab.forge.jlatexmath.TeXConstants.STYLE_DISPLAY, 20, Packages.java.awt.Color.black, Packages.java.awt.Color.white);
+    } catch(err){
+         //Show the initial content in red foreground
+         bufferedImage = new Packages.java.awt.image.BufferedImage(latexContent.length() * 8, 20, Packages.java.awt.image.BufferedImage.TYPE_INT_ARGB);
+          g = bufferedImage.getGraphics();
+          g.setColor(Packages.java.awt.Color.red);
+          rh = new Packages.java.awt.RenderingHints(
+             Packages.java.awt.RenderingHints.KEY_TEXT_ANTIALIASING,
+             Packages.java.awt.RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+          g.setRenderingHints(rh);
+          g.drawString(latexContent, 0, 15);
+          return bufferedImage;
+    }
 }
 
 function applicationClosing(pluginWorkspaceAccess) {
