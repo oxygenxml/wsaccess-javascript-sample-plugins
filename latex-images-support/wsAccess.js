@@ -6,7 +6,9 @@ function applicationStarted(pluginWorkspaceAccess) {
             return false;
         },
         canHandleNodeContext: function (nodeContext) {
-            return "latex" == nodeContext.getNodeName() || ("foreign" == nodeContext.getNodeName() && "embed-latex" == nodeContext.getAttributeValue("outputclass"));
+            return "latex" == nodeContext.getNodeName() 
+              || ("foreign" == nodeContext.getNodeName() && "embed-latex" == nodeContext.getAttributeValue("outputclass"))
+              || ("tex-math" == nodeContext.getNodeName() && "LaTeX" == nodeContext.getAttributeValue("notation"));
         },
         editImage: function (editContext) {
             jta = new Packages.javax.swing.JTextArea(editContext.getImageSerializedContent());
