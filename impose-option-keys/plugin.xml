@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="com.oxygenxml.impose.symbols"
+ name="Impose an option key using the API."
+ description="Impose a list of symbols to be used in the Symbols drop down toolbar"
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+</plugin>
