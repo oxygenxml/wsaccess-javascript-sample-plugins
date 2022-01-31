@@ -7,6 +7,7 @@ function applicationStarted(pluginWorkspaceAccess) {
         },
         canHandleNodeContext: function (nodeContext) {
             return "latex" == nodeContext.getNodeName() 
+              || "formula" == nodeContext.getNodeName()
               || ("foreign" == nodeContext.getNodeName() && "embed-latex" == nodeContext.getAttributeValue("outputclass"))
               || ("tex-math" == nodeContext.getNodeName() && "LaTeX" == nodeContext.getAttributeValue("notation"));
         },
