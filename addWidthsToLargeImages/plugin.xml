@@ -1,0 +1,11 @@
+<!DOCTYPE plugin PUBLIC "-//Oxygen Plugin" "../plugin.dtd">
+<plugin
+ id="com.oxygenxml.popup.author"
+ name="Add widths to images"
+ description="Plugin adds widths to referenced images if their width is greater than a certain width."
+ version="1.0"
+ vendor="Syncro Soft"
+ class="ro.sync.exml.plugin.Plugin"
+ classLoaderType="preferReferencedResources">
+ <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+</plugin>
