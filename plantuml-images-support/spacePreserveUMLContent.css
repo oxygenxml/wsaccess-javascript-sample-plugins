@@ -4,3 +4,11 @@ foreign[outputclass='embed-plant-uml']{
 programlisting[language='embed-plant-uml']{
     display:inline;
 }
+
+foreign[outputclass="embed-plant-uml"]:after{
+		display:inline;
+		content: "\A"
+			    oxy_textArea(
+			      	edit, '#text',
+			      	contentType, 'text/plain');
+}
