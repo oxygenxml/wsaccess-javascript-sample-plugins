@@ -9,7 +9,7 @@
  class="ro.sync.exml.plugin.Plugin"
  classLoaderType="preferReferencedResources">
  <runtime>
-  <library name="jlatexmath-1.0.3.jar" scope="global"/>
+  <library name="jlatexmath-1.0.7.jar" scope="global"/>
  </runtime>
  <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
 </plugin>
