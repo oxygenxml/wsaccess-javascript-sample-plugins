@@ -12,4 +12,5 @@
   <library name="jlatexmath-1.0.7.jar" scope="global"/>
  </runtime>
  <extension type="WorkspaceAccessJS" href="wsAccess.js"/>
+ <extension type="AuthorStylesheet" href="eq.css"/>
 </plugin>
