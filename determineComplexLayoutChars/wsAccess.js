@@ -50,6 +50,10 @@ function isComplexLayout(chs, start, limit) {
 }
 
 function isNonSimpleChar(code) {
+    if(code >= 0xD800 && code <= 0xDFFF){
+    //D800 -> DFFF - surrogate chars
+      return true;
+    }
     if (code < 0x0300 || code > 0x206F) {
       return false;
     }
